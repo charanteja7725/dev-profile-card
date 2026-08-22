@@ -1,14 +1,22 @@
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Load the supplied profile photo from small repository chunks.
-// This avoids the connector limitation that was truncating the binary image upload.
+// Reconstruct the supplied profile photo from small repository chunks.
+// The split files keep the full image intact and avoid binary-upload truncation.
 (async function loadProfilePhoto() {
   const portrait = document.querySelector('.profile-photo');
   if (!portrait) return;
 
-  const parts = Array.from({ length: 8 }, (_, index) =>
-    `assets/profile-parts/part${String(index).padStart(2, '0')}.txt`
-  );
+  const parts = [
+    'assets/profile-parts/part00.txt',
+    'assets/profile-parts/part01.txt',
+    'assets/profile-parts/part02.txt',
+    'assets/profile-parts/part03a.txt',
+    'assets/profile-parts/part03b.txt',
+    'assets/profile-parts/part04.txt',
+    'assets/profile-parts/part05.txt',
+    'assets/profile-parts/part06.txt',
+    'assets/profile-parts/part07.txt',
+  ];
 
   try {
     const encodedParts = await Promise.all(
