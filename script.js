@@ -1,5 +1,32 @@
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Load the supplied profile photo from small repository chunks.
+// This avoids the connector limitation that was truncating the binary image upload.
+(async function loadProfilePhoto() {
+  const portrait = document.querySelector('.profile-photo');
+  if (!portrait) return;
+
+  const parts = Array.from({ length: 8 }, (_, index) =>
+    `assets/profile-parts/part${String(index).padStart(2, '0')}.txt`
+  );
+
+  try {
+    const encodedParts = await Promise.all(
+      parts.map(async (path) => {
+        const response = await fetch(path, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`Failed to load ${path}`);
+        return (await response.text()).trim();
+      })
+    );
+
+    portrait.src = `data:image/jpeg;base64,${encodedParts.join('')}`;
+    portrait.loading = 'eager';
+    portrait.decoding = 'async';
+  } catch (error) {
+    console.warn('Profile photo could not be reconstructed.', error);
+  }
+})();
+
 // Reveal sections as they enter the viewport.
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
