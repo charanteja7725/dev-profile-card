@@ -1,105 +1,31 @@
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Add the supplied portrait as the main 3D hero visual while keeping the skill orbit behind it.
-const heroVisual = document.querySelector('.hero-visual');
-if (heroVisual) {
-  heroVisual.style.position = 'relative';
-  heroVisual.style.isolation = 'isolate';
+// Load the clearer supplied portrait from two small repository text chunks.
+// Keeping the encoded image in chunks avoids browser compression/reprocessing by the site.
+(async function loadClearPortrait() {
+  const portrait = document.querySelector('.profile-photo');
+  if (!portrait) return;
 
-  const orbit = heroVisual.querySelector('.skill-orbit');
-  if (orbit) {
-    orbit.style.position = 'absolute';
-    orbit.style.zIndex = '0';
-    orbit.style.opacity = '0.5';
-    orbit.style.transform = 'scale(0.84) rotateX(58deg) rotateZ(-8deg) translate(72px, -10px)';
-    orbit.style.filter = 'saturate(1.15)';
+  try {
+    const [part0, part1] = await Promise.all([
+      fetch('assets/profile-data/avif0.txt').then((response) => {
+        if (!response.ok) throw new Error('Portrait part 1 failed to load');
+        return response.text();
+      }),
+      fetch('assets/profile-data/avif1.txt').then((response) => {
+        if (!response.ok) throw new Error('Portrait part 2 failed to load');
+        return response.text();
+      }),
+    ]);
+
+    portrait.src = `data:image/avif;base64,${part0.trim()}${part1.trim()}`;
+    portrait.loading = 'eager';
+    portrait.decoding = 'async';
+  } catch (error) {
+    // The existing assets/profile.jpg remains as a graceful fallback.
+    console.warn('Using fallback portfolio portrait.', error);
   }
-
-  const portraitStage = document.createElement('div');
-  portraitStage.setAttribute('aria-label', 'Portrait of Ravuri Charan Teja');
-  portraitStage.style.cssText = `
-    position:relative;
-    z-index:2;
-    width:min(360px,78vw);
-    aspect-ratio:9/14;
-    border-radius:30px;
-    padding:10px;
-    background:linear-gradient(145deg,rgba(98,230,255,.7),rgba(107,140,255,.2) 38%,rgba(10,21,38,.92) 72%);
-    border:1px solid rgba(176,239,255,.35);
-    box-shadow:0 18px 0 rgba(2,7,17,.96),0 36px 70px rgba(0,0,0,.48),0 0 55px rgba(98,230,255,.12);
-    transform-style:preserve-3d;
-    transform:perspective(1100px) rotateY(-10deg) rotateX(3deg) translateZ(34px);
-    transition:transform .25s ease,box-shadow .25s ease;
-  `;
-
-  const portrait = document.createElement('img');
-  portrait.src = 'assets/profile.jpg';
-  portrait.alt = 'Ravuri Charan Teja';
-  portrait.loading = 'eager';
-  portrait.decoding = 'async';
-  portrait.style.cssText = `
-    display:block;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:center center;
-    border-radius:23px;
-    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
-    transform:translateZ(30px);
-  `;
-
-  const namePlate = document.createElement('div');
-  namePlate.innerHTML = '<strong>RAVURI CHARAN TEJA</strong><span>JAVA • DSA • FULL STACK</span>';
-  namePlate.style.cssText = `
-    position:absolute;
-    left:24px;
-    right:24px;
-    bottom:26px;
-    display:grid;
-    gap:4px;
-    padding:14px 16px;
-    border:1px solid rgba(255,255,255,.18);
-    border-radius:15px;
-    background:rgba(5,13,25,.72);
-    backdrop-filter:blur(12px);
-    box-shadow:0 9px 0 rgba(1,5,12,.78),0 18px 28px rgba(0,0,0,.25);
-    transform:translateZ(58px);
-    font-family:Space Grotesk,Inter,sans-serif;
-  `;
-  namePlate.querySelector('strong').style.cssText = 'font-size:.9rem;letter-spacing:.08em;color:#fff;';
-  namePlate.querySelector('span').style.cssText = 'font-size:.67rem;letter-spacing:.13em;color:#7ee9ff;font-weight:700;';
-
-  const javaBadge = document.createElement('div');
-  javaBadge.textContent = '6 / 7 JAVA BELTS';
-  javaBadge.style.cssText = `
-    position:absolute;
-    top:28px;
-    right:-32px;
-    padding:10px 13px;
-    border-radius:12px;
-    color:#07111f;
-    background:linear-gradient(145deg,#c8f8ff,#62e6ff);
-    font:800 .72rem Space Grotesk,Inter,sans-serif;
-    letter-spacing:.08em;
-    box-shadow:0 8px 0 #236c79,0 17px 28px rgba(0,0,0,.32);
-    transform:translateZ(65px) rotateY(-8deg) rotateZ(3deg);
-  `;
-
-  portraitStage.append(portrait, namePlate, javaBadge);
-  heroVisual.prepend(portraitStage);
-
-  if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
-    portraitStage.addEventListener('mousemove', (event) => {
-      const rect = portraitStage.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-      portraitStage.style.transform = `perspective(1100px) rotateY(${x * 14 - 6}deg) rotateX(${-y * 10 + 2}deg) translateZ(48px)`;
-    });
-    portraitStage.addEventListener('mouseleave', () => {
-      portraitStage.style.transform = 'perspective(1100px) rotateY(-10deg) rotateX(3deg) translateZ(34px)';
-    });
-  }
-}
+})();
 
 // Reveal sections as they enter the viewport.
 const revealObserver = new IntersectionObserver((entries) => {
@@ -110,7 +36,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
-// 3D tilt interaction for cards and panels.
+// 3D tilt interaction for cards and the centered portrait.
 if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
   document.querySelectorAll('.tilt-card').forEach((card) => {
     card.addEventListener('mousemove', (event) => {
@@ -130,6 +56,7 @@ if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
 // Cursor glow follows the mouse and gives the depth surfaces a light source.
 const glow = document.querySelector('.cursor-glow');
 window.addEventListener('pointermove', (event) => {
+  if (!glow) return;
   glow.style.left = `${event.clientX}px`;
   glow.style.top = `${event.clientY}px`;
 });
@@ -140,6 +67,7 @@ let toastTimer;
 document.querySelectorAll('[data-toast]').forEach((button) => {
   button.addEventListener('click', () => {
     clearTimeout(toastTimer);
+    if (!toast) return;
     toast.textContent = button.dataset.toast;
     toast.classList.add('show');
     toastTimer = setTimeout(() => toast.classList.remove('show'), 4300);
