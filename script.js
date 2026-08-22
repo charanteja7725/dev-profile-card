@@ -1,32 +1,5 @@
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Load the clearer supplied portrait from two small repository text chunks.
-// Keeping the encoded image in chunks avoids browser compression/reprocessing by the site.
-(async function loadClearPortrait() {
-  const portrait = document.querySelector('.profile-photo');
-  if (!portrait) return;
-
-  try {
-    const [part0, part1] = await Promise.all([
-      fetch('assets/profile-data/avif0.txt').then((response) => {
-        if (!response.ok) throw new Error('Portrait part 1 failed to load');
-        return response.text();
-      }),
-      fetch('assets/profile-data/avif1.txt').then((response) => {
-        if (!response.ok) throw new Error('Portrait part 2 failed to load');
-        return response.text();
-      }),
-    ]);
-
-    portrait.src = `data:image/avif;base64,${part0.trim()}${part1.trim()}`;
-    portrait.loading = 'eager';
-    portrait.decoding = 'async';
-  } catch (error) {
-    // The existing assets/profile.jpg remains as a graceful fallback.
-    console.warn('Using fallback portfolio portrait.', error);
-  }
-})();
-
 // Reveal sections as they enter the viewport.
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
@@ -36,7 +9,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
-// 3D tilt interaction for cards and the centered portrait.
+// 3D tilt interaction for cards and the profile portrait.
 if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
   document.querySelectorAll('.tilt-card').forEach((card) => {
     card.addEventListener('mousemove', (event) => {
@@ -47,19 +20,21 @@ if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
       const rotateX = (0.5 - y) * 8;
       card.style.transform = `perspective(1100px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
     });
+
     card.addEventListener('mouseleave', () => {
       card.style.transform = '';
     });
   });
 }
 
-// Cursor glow follows the mouse and gives the depth surfaces a light source.
+// Cursor glow follows the mouse and acts like a soft moving light source.
 const glow = document.querySelector('.cursor-glow');
-window.addEventListener('pointermove', (event) => {
-  if (!glow) return;
-  glow.style.left = `${event.clientX}px`;
-  glow.style.top = `${event.clientY}px`;
-});
+if (glow) {
+  window.addEventListener('pointermove', (event) => {
+    glow.style.left = `${event.clientX}px`;
+    glow.style.top = `${event.clientY}px`;
+  });
+}
 
 // Truthful tooltip for links that are not publicly verifiable.
 const toast = document.getElementById('toast');
@@ -67,7 +42,6 @@ let toastTimer;
 document.querySelectorAll('[data-toast]').forEach((button) => {
   button.addEventListener('click', () => {
     clearTimeout(toastTimer);
-    if (!toast) return;
     toast.textContent = button.dataset.toast;
     toast.classList.add('show');
     toastTimer = setTimeout(() => toast.classList.remove('show'), 4300);
@@ -88,13 +62,23 @@ if (window.THREE && !reduceMotion) {
   scene.add(group);
 
   const knotGeometry = new THREE.TorusKnotGeometry(1.25, 0.25, 160, 20);
-  const knotMaterial = new THREE.MeshBasicMaterial({ color: 0x5be7ff, wireframe: true, transparent: true, opacity: 0.16 });
+  const knotMaterial = new THREE.MeshBasicMaterial({
+    color: 0x5be7ff,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.16,
+  });
   const knot = new THREE.Mesh(knotGeometry, knotMaterial);
   knot.position.set(3.2, 1.8, -1.5);
   group.add(knot);
 
   const icoGeometry = new THREE.IcosahedronGeometry(1.1, 1);
-  const icoMaterial = new THREE.MeshBasicMaterial({ color: 0x8a72ff, wireframe: true, transparent: true, opacity: 0.12 });
+  const icoMaterial = new THREE.MeshBasicMaterial({
+    color: 0x8a72ff,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.12,
+  });
   const ico = new THREE.Mesh(icoGeometry, icoMaterial);
   ico.position.set(-3.5, -1.6, -2);
   group.add(ico);
@@ -106,9 +90,15 @@ if (window.THREE && !reduceMotion) {
     positions[i + 1] = (Math.random() - 0.5) * 12;
     positions[i + 2] = (Math.random() - 0.5) * 10;
   }
+
   const particleGeometry = new THREE.BufferGeometry();
   particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  const particleMaterial = new THREE.PointsMaterial({ color: 0x8bdfff, size: 0.018, transparent: true, opacity: 0.42 });
+  const particleMaterial = new THREE.PointsMaterial({
+    color: 0x8bdfff,
+    size: 0.018,
+    transparent: true,
+    opacity: 0.42,
+  });
   const particles = new THREE.Points(particleGeometry, particleMaterial);
   scene.add(particles);
 
@@ -119,6 +109,7 @@ if (window.THREE && !reduceMotion) {
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
   }
+
   window.addEventListener('resize', resize);
   resize();
 
@@ -142,5 +133,6 @@ if (window.THREE && !reduceMotion) {
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
   }
+
   animate();
 }
