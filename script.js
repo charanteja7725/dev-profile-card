@@ -34,5 +34,24 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeMenu();
 });
 
-// No scroll loop, no canvas, no WebGL, no pointer tracking.
-// The page is intentionally rendered as normal HTML/CSS so scrolling stays idle.
+// Lightweight 3D interaction: only runs while the pointer is over a project card.
+// There is no scroll loop, canvas, WebGL, or continuous requestAnimationFrame work.
+const canHover = window.matchMedia('(pointer: fine)').matches;
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (canHover && !reduceMotion) {
+  document.querySelectorAll('.tilt').forEach((card) => {
+    card.addEventListener('pointermove', (event) => {
+      const rect = card.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      const rotateX = y * -2.8;
+      const rotateY = x * 3.2;
+      card.style.transform = `perspective(1100px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
+    });
+
+    card.addEventListener('pointerleave', () => {
+      card.style.transform = '';
+    });
+  });
+}
