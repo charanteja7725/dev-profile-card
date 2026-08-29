@@ -70,6 +70,25 @@ const revealObserver = new IntersectionObserver((entries, observer) => {
 
 document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
+// Lightweight scroll-spy for the existing navigation. IntersectionObserver keeps this off the hot scroll path.
+const navLinks = Array.from(document.querySelectorAll('.nav-chip[href^="#"]'));
+const sections = navLinks
+  .map((link) => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+if (navLinks.length && sections.length) {
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      navLinks.forEach((link) => link.removeAttribute('aria-current'));
+      const active = navLinks.find((link) => link.getAttribute('href') === `#${entry.target.id}`);
+      if (active) active.setAttribute('aria-current', 'page');
+    });
+  }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+
+  sections.forEach((section) => navObserver.observe(section));
+}
+
 // Smooth, low-frequency 3D tilt. Work is batched into animation frames.
 if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
   document.querySelectorAll('.tilt-card').forEach((card) => {
@@ -86,7 +105,7 @@ if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
         const rect = card.getBoundingClientRect();
         const x = (pointerX - rect.left) / rect.width;
         const y = (pointerY - rect.top) / rect.height;
-        card.style.transform = `perspective(1100px) rotateX(${(0.5 - y) * 5}deg) rotateY(${(x - 0.5) * 6}deg) translateZ(5px)`;
+        card.style.transform = `perspective(1100px) rotateX(${(0.5 - y) * 3}deg) rotateY(${(x - 0.5) * 4}deg) translateZ(3px)`;
       });
     }, { passive: true });
 
