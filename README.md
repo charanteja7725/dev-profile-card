@@ -1,17 +1,19 @@
 # Ravuri Charan Teja — Developer Portfolio
 
-A fast, responsive, recruiter-focused portfolio for **Ravuri Charan Teja**, a Software Product Engineering student focused on full-stack development, Java, DSA and real-world problem solving.
+A premium, responsive portfolio for **Ravuri Charan Teja**, a Software Product Engineering student focused on full-stack development, Java, DSA and real-world problem solving.
 
-## Portfolio focus
+## Verified portfolio information
 
+- Software Product Engineering student at Kalvium
 - Problem-first software development
 - Full-stack product engineering
 - Java as the primary language: **6 of 7 Dojo belts achieved**
 - DSA and algorithmic problem solving
-- Python as the secondary language: **4 Dojo belts achieved**
+- Python as a secondary language: **4 Dojo belts achieved**
 - Communication score: **8**
 - Individual project: **AgroConnect 2.0**
 - Collaborative project experience: **Tata 1mg**
+- Additional deployed project: **Rangam Saree Silks**
 - Backend engineering, Git, CI/CD, Vercel and Render learning
 
 ## Projects
@@ -21,34 +23,33 @@ Repository: https://github.com/charanteja7725/AgroConnect2.0
 
 A full-stack agricultural marketplace with multiple user roles, farmer verification, protected workflows, cart/order/delivery/payment flows, realtime notifications and cloud deployment work.
 
-The portfolio does not invent a public live frontend URL for AgroConnect because the repository documentation does not provide a confirmed production URL.
+No public live frontend URL is shown because the project documentation does not provide a confirmed production URL.
+
+### Rangam Saree Silks
+Live: https://rangam-saree-silks.vercel.app/
+
+An AI-based online saree shopping platform with product, account, order and payment workflows.
 
 ### Tata 1mg
 A Kalvium collaborative learning experience involving feedback, redesign, backend-focused contribution, teamwork and rebuilding after rejection. No public repository link is fabricated.
 
-### Rangam Saree Silks
-A deployed AI-based online saree shopping platform with product, account, order and payment workflows.
+## Architecture and performance
 
-Live: https://rangam-saree-silks.vercel.app/
-
-## UX and performance
-
-The portfolio intentionally uses a lightweight visual system rather than a 3D/WebGL experience.
+The site is intentionally framework-free: semantic HTML, CSS and a small vanilla JavaScript interaction layer.
 
 - No Three.js
+- No WebGL
 - No continuous canvas rendering
-- No mouse-driven 3D transforms
-- Static CSS background effects
-- Event-driven mobile navigation
-- IntersectionObserver-based one-time section reveals
-- Passive scroll handling with requestAnimationFrame for the compact header state
-- Responsive layout for mobile, tablet and desktop
+- CSS-only 3D/glass visual depth
+- Pointer-only card tilt; nothing runs while scrolling
+- IntersectionObserver-based one-time reveals and section tracking
+- One passive scroll listener only for the compact header state
 - `prefers-reduced-motion` support
+- Content remains visible even if JavaScript fails
 - Inline critical background styling prevents a white flash before the stylesheet paints
+- Responsive desktop, tablet and mobile layouts
 
 ## Run locally
-
-No build step is required:
 
 ```bash
 python -m http.server 8000
