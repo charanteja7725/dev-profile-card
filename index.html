@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="performance.css" />
   <style>
     .hero-visual { min-height: 700px; display: flex; align-items: center; justify-content: center; }
     .portrait-scene { position: relative; width: min(520px, 100%); min-height: 720px; display: grid; place-items: center; }
@@ -31,126 +32,25 @@
   </style>
 </head>
 <body>
-  <canvas id="webgl" aria-hidden="true"></canvas>
   <div class="noise" aria-hidden="true"></div>
-  <div class="cursor-glow" aria-hidden="true"></div>
-
   <header class="topbar depth-panel">
-    <a class="brand cube-button" href="#home" aria-label="Go to home">
-      <span class="brand-mark">CT</span>
-      <span class="brand-text">Problem → Product</span>
-    </a>
-    <nav class="nav-links" aria-label="Primary navigation">
-      <a class="nav-chip" href="#about">About</a>
-      <a class="nav-chip" href="#kalvium">Kalvium</a>
-      <a class="nav-chip" href="#projects">Projects</a>
-      <a class="nav-chip" href="#journey">Journey</a>
-      <a class="nav-chip" href="#contact">Contact</a>
-    </nav>
+    <a class="brand cube-button" href="#home" aria-label="Go to home"><span class="brand-mark">CT</span><span class="brand-text">Problem → Product</span></a>
+    <nav class="nav-links" aria-label="Primary navigation"><a class="nav-chip" href="#about">About</a><a class="nav-chip" href="#kalvium">Kalvium</a><a class="nav-chip" href="#projects">Projects</a><a class="nav-chip" href="#journey">Journey</a><a class="nav-chip" href="#contact">Contact</a></nav>
   </header>
-
   <main>
     <section class="hero section-shell" id="home">
-      <div class="hero-copy reveal">
-        <p class="eyebrow floating-chip">REAL-WORLD PROBLEM SOLVER • JAVA • DSA • FULL STACK</p>
-        <h1>I look for <span class="gradient-text">real problems</span><br />and build software around them.</h1>
-        <p class="hero-lead">I am Ravuri Charan Teja, a Kalvium learner and developer focused on practical software, strong problem solving, and turning feedback into better products.</p>
-        <div class="hero-actions">
-          <a class="btn-3d primary" href="#projects"><span>Explore Projects</span><i>↗</i></a>
-          <a class="btn-3d ghost" href="https://github.com/charanteja7725" target="_blank" rel="noreferrer"><span>GitHub Profile</span><i>⌘</i></a>
-        </div>
-        <div class="hero-stats">
-          <div class="stat-cube tilt-card"><strong>6 / 7</strong><span>Java Dojo Belts</span></div>
-          <div class="stat-cube tilt-card"><strong>4</strong><span>Python Dojo Belts</span></div>
-          <div class="stat-cube tilt-card"><strong>8</strong><span>Communication Score</span></div>
-        </div>
-      </div>
-
-      <div class="hero-visual reveal" aria-label="3D centered profile portrait">
-        <div class="portrait-scene scene-3d">
-          <div class="portrait-back-orbit scene-3d">
-            <div class="orbit orbit-one"><span>JAVA</span></div>
-            <div class="orbit orbit-two"><span>DSA</span></div>
-            <div class="orbit orbit-three"><span>PYTHON</span></div>
-            <div class="orbit orbit-four"><span>MERN</span></div>
-            <div class="orbit orbit-five"><span>APIs</span></div>
-            <div class="orbit orbit-six"><span>GIT</span></div>
-          </div>
-          <div class="portrait-wrap tilt-card">
-            <div class="portrait-glow"></div>
-            <div class="portrait-frame">
-              <img class="profile-photo" src="assets/profile.jpg" alt="Ravuri Charan Teja portrait" />
-              <div class="portrait-gradient"></div>
-              <div class="portrait-caption">
-                <p class="caption-chip">KALVIUM • JAVA • DSA</p>
-                <h3>RAVURI CHARAN TEJA</h3>
-                <p>Building full-stack solutions for real-world problems.</p>
-              </div>
-            </div>
-            <div class="floating-badge badge-top">6 / 7 JAVA BELTS</div>
-            <div class="floating-badge badge-bottom">FULL STACK • PROBLEM SOLVER</div>
-          </div>
-        </div>
-      </div>
+      <div class="hero-copy reveal"><p class="eyebrow floating-chip">REAL-WORLD PROBLEM SOLVER • JAVA • DSA • FULL STACK</p><h1>I look for <span class="gradient-text">real problems</span><br />and build software around them.</h1><p class="hero-lead">I am Ravuri Charan Teja, a Kalvium learner and developer focused on practical software, strong problem solving, and turning feedback into better products.</p><div class="hero-actions"><a class="btn-3d primary" href="#projects"><span>Explore Projects</span><i>↗</i></a><a class="btn-3d ghost" href="https://github.com/charanteja7725" target="_blank" rel="noreferrer"><span>GitHub Profile</span><i>⌘</i></a></div><div class="hero-stats"><div class="stat-cube tilt-card"><strong>6 / 7</strong><span>Java Dojo Belts</span></div><div class="stat-cube tilt-card"><strong>4</strong><span>Python Dojo Belts</span></div><div class="stat-cube tilt-card"><strong>8</strong><span>Communication Score</span></div></div></div>
+      <div class="hero-visual reveal" aria-label="3D centered profile portrait"><div class="portrait-scene scene-3d"><div class="portrait-back-orbit scene-3d"><div class="orbit orbit-one"><span>JAVA</span></div><div class="orbit orbit-two"><span>DSA</span></div><div class="orbit orbit-three"><span>PYTHON</span></div><div class="orbit orbit-four"><span>MERN</span></div><div class="orbit orbit-five"><span>APIs</span></div><div class="orbit orbit-six"><span>GIT</span></div></div><div class="portrait-wrap tilt-card"><div class="portrait-glow"></div><div class="portrait-frame"><img class="profile-photo" src="assets/profile.jpg" alt="Ravuri Charan Teja portrait" width="410" height="632" fetchpriority="high" decoding="async" /><div class="portrait-gradient"></div><div class="portrait-caption"><p class="caption-chip">KALVIUM • JAVA • DSA</p><h3>RAVURI CHARAN TEJA</h3><p>Building full-stack solutions for real-world problems.</p></div></div><div class="floating-badge badge-top">6 / 7 JAVA BELTS</div><div class="floating-badge badge-bottom">FULL STACK • PROBLEM SOLVER</div></div></div></div>
     </section>
-
-    <section class="section-shell" id="about">
-      <div class="section-heading reveal"><p class="eyebrow">ABOUT MY APPROACH</p><h2>Problem first. Technology second.</h2><p>I am most interested in understanding where users struggle, what makes a system unreliable, and how software can make the process clearer, safer, faster, or easier.</p></div>
-      <div class="three-grid">
-        <article class="glass-card tilt-card reveal"><div class="card-icon cube-icon">01</div><h3>Find the real problem</h3><p>I like to start with the user, workflow, trust gap, or operational pain point before deciding what to build.</p></article>
-        <article class="glass-card tilt-card reveal"><div class="card-icon cube-icon">02</div><h3>Build the complete flow</h3><p>I focus on authentication, roles, data, backend logic, user journeys, testing, deployment and the details that make a system usable.</p></article>
-        <article class="glass-card tilt-card reveal"><div class="card-icon cube-icon">03</div><h3>Learn through feedback</h3><p>Rejected ideas, broken builds, failed integrations and code conflicts are part of the process. I use them to rebuild with better structure and clarity.</p></article>
-      </div>
-    </section>
-
-    <section class="section-shell" id="kalvium">
-      <div class="section-heading reveal"><p class="eyebrow">KALVIUM JOURNEY</p><h2>Learning through coding, projects and collaboration.</h2><p>My Kalvium journey combines language mastery, DSA practice, communication, backend development and team-based product work.</p></div>
-      <div class="achievement-layout">
-        <div class="belt-tower tilt-card reveal"><div class="tower-top">PRIMARY LANGUAGE</div><div class="belt-number">6<span>/7</span></div><h3>Java Dojo Belts</h3><p>My strongest programming language. The belt journey includes problem solving and DSA practice, with a focus on writing clear, correct solutions.</p><div class="belt-row" aria-label="6 of 7 Java belts achieved"><span class="earned"></span><span class="earned"></span><span class="earned"></span><span class="earned"></span><span class="earned"></span><span class="earned"></span><span></span></div></div>
-        <div class="mini-achievements">
-          <article class="mini-card tilt-card reveal"><div class="mini-value">4</div><div><h3>Python Dojo Belts</h3><p>Secondary language used for programming practice and data-oriented problem solving.</p></div></article>
-          <article class="mini-card tilt-card reveal"><div class="mini-value">DSA</div><div><h3>Problem Solving</h3><p>Arrays, hashing, two pointers, recursion, backtracking, dynamic programming, sliding window and algorithm analysis.</p></div></article>
-          <article class="mini-card tilt-card reveal"><div class="mini-value">8</div><div><h3>Communication Score</h3><p>Communication is part of engineering: explaining decisions, collaborating in teams, presenting work and responding to feedback.</p></div></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-shell" id="projects">
-      <div class="section-heading reveal"><p class="eyebrow">FEATURED PROJECTS</p><h2>Two projects that shaped how I build.</h2><p>One taught me how to own a complex real-world product independently. The other taught me how to respond to rejection, collaborate, and rebuild.</p></div>
-      <div class="project-stack">
-        <article class="project-card agro tilt-card reveal">
-          <div class="project-label">INDIVIDUAL PROJECT • FULL STACK</div>
-          <div class="project-grid"><div><h3>AgroConnect 2.0</h3><p class="project-problem"><strong>Problem:</strong> An agricultural marketplace is not useful if anyone can claim to be a farmer, users cannot trust sellers, or the system ignores delivery, payments and role-specific workflows.</p><p>I built AgroConnect 2.0 as a multi-role agricultural marketplace connecting buyers, farmers, fertilizer sellers, delivery partners, verification employees and administrators.</p><ul class="feature-list"><li>Farmer verification workflow with supporting farm evidence, location and manual review.</li><li>Unverified farmers are restricted from publishing produce.</li><li>Role-based authentication, dashboards and protected workflows.</li><li>Cart, orders, delivery, notifications and payment flows.</li><li>React + Vite frontend, Node.js + Express backend and MongoDB.</li><li>Socket.IO realtime features, Cloudinary uploads, CI/CD and deployment work.</li></ul><div class="tech-cloud"><span>React</span><span>Vite</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Socket.IO</span><span>Cloudinary</span><span>GitHub Actions</span></div><div class="project-actions"><a class="btn-3d primary compact" href="https://github.com/charanteja7725/AgroConnect2.0" target="_blank" rel="noreferrer"><span>Repository</span><i>↗</i></a><a class="btn-3d ghost compact" href="https://github.com/charanteja7725/AgroConnect2.0/blob/main/README.md" target="_blank" rel="noreferrer"><span>Documentation</span><i>↗</i></a><button class="btn-3d muted compact" type="button" data-toast="A verified public AgroConnect frontend URL was not stored in the repository, so I did not invent one."><span>Live URL</span><i>?</i></button></div></div>
-            <div class="project-object scene-3d" aria-hidden="true"><div class="farm-cube"><div class="cube-face front">FARM</div><div class="cube-face back">BUY</div><div class="cube-face right">SELL</div><div class="cube-face left">VERIFY</div><div class="cube-face top">DELIVER</div><div class="cube-face bottom">PAY</div></div></div>
-          </div>
-        </article>
-        <article class="project-card tata tilt-card reveal">
-          <div class="project-label">KALVIUM COLLABORATIVE PROJECT • NEXT.JS</div>
-          <div class="project-grid reverse"><div><h3>Tata 1mg Collaborative Project</h3><p class="project-problem"><strong>Learning moment:</strong> The first version was rejected. Instead of treating that as the end of the project, I used the feedback as a reason to rethink the implementation.</p><p>Working with the Kalvium-provided team, I contributed mainly to the backend side of the project, while the database work was handled separately. We reviewed what went wrong, incorporated mentor inputs, added new ideas and rebuilt the project into a stronger submission.</p><ul class="feature-list"><li>Collaborative development in a team environment.</li><li>Backend-focused contribution and API-side understanding.</li><li>Next.js project architecture and integration learning.</li><li>Git workflow, debugging, code review and merge/conflict learning.</li><li>Rejection → feedback → redesign → rebuild → successful completion.</li></ul><div class="tech-cloud"><span>Next.js</span><span>JavaScript</span><span>Backend</span><span>REST APIs</span><span>Git</span><span>Teamwork</span></div><div class="project-actions"><button class="btn-3d muted compact" type="button" data-toast="No public Tata 1mg repository was found in the connected GitHub account, so no fake link was added."><span>Team Repository</span><i>?</i></button></div></div><div class="project-object scene-3d" aria-hidden="true"><div class="rebuild-stack"><div class="layer layer-1">REJECTED</div><div class="layer layer-2">FEEDBACK</div><div class="layer layer-3">REBUILD</div><div class="layer layer-4">IMPROVED</div></div></div></div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section-shell" id="journey">
-      <div class="section-heading reveal"><p class="eyebrow">ENGINEERING JOURNEY</p><h2>What I have been building and learning.</h2><p>This section reflects the practical work behind the projects: algorithms, backend systems, databases, Git, CI/CD and deployment troubleshooting.</p></div>
-      <div class="journey-grid">
-        <article class="journey-card tilt-card reveal"><span class="journey-index">01</span><h3>Java + DSA</h3><p>LeetCode-style problem solving, complexity analysis, two pointers, sorting, hashing, recursion, backtracking, dynamic programming and clean for-loop based implementations.</p></article>
-        <article class="journey-card tilt-card reveal"><span class="journey-index">02</span><h3>Backend Engineering</h3><p>REST routes, auth context, protected APIs, notifications, payments, validation, role permissions, tests and server-side debugging.</p></article>
-        <article class="journey-card tilt-card reveal"><span class="journey-index">03</span><h3>Database Thinking</h3><p>DBMS concepts, relational modelling, NoSQL/MongoDB, data structures, application schemas and understanding how data design affects the product.</p></article>
-        <article class="journey-card tilt-card reveal"><span class="journey-index">04</span><h3>Git + Collaboration</h3><p>Branches, staged changes, commits, pulls, conflict resolution, repository recovery questions, team workflows and improving confidence with source control.</p></article>
-        <article class="journey-card tilt-card reveal"><span class="journey-index">05</span><h3>CI/CD + Deployment</h3><p>GitHub Actions, Node version compatibility, npm lockfile issues, Vercel frontend builds, Render backend deployment and connecting frontend to backend environments.</p></article>
-        <article class="journey-card tilt-card reveal"><span class="journey-index">06</span><h3>Full-stack Product Mindset</h3><p>My goal is not only to make buttons look good. I want routes, business logic, user roles, validation, integrations and deployment to work as one complete product.</p></article>
-      </div>
-    </section>
-
+    <section class="section-shell" id="about"><div class="section-heading reveal"><p class="eyebrow">ABOUT MY APPROACH</p><h2>Problem first. Technology second.</h2><p>I am most interested in understanding where users struggle, what makes a system unreliable, and how software can make the process clearer, safer, faster, or easier.</p></div><div class="three-grid"><article class="glass-card tilt-card reveal"><div class="card-icon cube-icon">01</div><h3>Find the real problem</h3><p>I like to start with the user, workflow, trust gap, or operational pain point before deciding what to build.</p></article><article class="glass-card tilt-card reveal"><div class="card-icon cube-icon">02</div><h3>Build the complete flow</h3><p>I focus on authentication, roles, data, backend logic, user journeys, testing, deployment and the details that make a system usable.</p></article><article class="glass-card tilt-card reveal"><div class="card-icon cube-icon">03</div><h3>Learn through feedback</h3><p>Rejected ideas, broken builds, failed integrations and code conflicts are part of the process. I use them to rebuild with better structure and clarity.</p></article></div></section>
+    <section class="section-shell" id="kalvium"><div class="section-heading reveal"><p class="eyebrow">KALVIUM JOURNEY</p><h2>Learning through coding, projects and collaboration.</h2><p>My Kalvium journey combines language mastery, DSA practice, communication, backend development and team-based product work.</p></div><div class="achievement-layout"><div class="belt-tower tilt-card reveal"><div class="tower-top">PRIMARY LANGUAGE</div><div class="belt-number">6<span>/7</span></div><h3>Java Dojo Belts</h3><p>My strongest programming language. The belt journey includes problem solving and DSA practice, with a focus on writing clear, correct solutions.</p><div class="belt-row" aria-label="6 of 7 Java belts achieved"><span class="earned"></span><span class="earned"></span><span class="earned"></span><span class="earned"></span><span class="earned"></span><span class="earned"></span><span></span></div></div><div class="mini-achievements"><article class="mini-card tilt-card reveal"><div class="mini-value">4</div><div><h3>Python Dojo Belts</h3><p>Secondary language used for programming practice and data-oriented problem solving.</p></div></article><article class="mini-card tilt-card reveal"><div class="mini-value">DSA</div><div><h3>Problem Solving</h3><p>Arrays, hashing, two pointers, recursion, backtracking, dynamic programming, sliding window and algorithm analysis.</p></div></article><article class="mini-card tilt-card reveal"><div class="mini-value">8</div><div><h3>Communication Score</h3><p>Communication is part of engineering: explaining decisions, collaborating in teams, presenting work and responding to feedback.</p></div></article></div></div></section>
+    <section class="section-shell" id="projects"><div class="section-heading reveal"><p class="eyebrow">FEATURED PROJECTS</p><h2>Two projects that shaped how I build.</h2><p>One taught me how to own a complex real-world product independently. The other taught me how to respond to rejection, collaborate, and rebuild.</p></div><div class="project-stack"><article class="project-card agro tilt-card reveal"><div class="project-label">INDIVIDUAL PROJECT • FULL STACK</div><div class="project-grid"><div><h3>AgroConnect 2.0</h3><p class="project-problem"><strong>Problem:</strong> An agricultural marketplace is not useful if anyone can claim to be a farmer, users cannot trust sellers, or the system ignores delivery, payments and role-specific workflows.</p><p>I built AgroConnect 2.0 as a multi-role agricultural marketplace connecting buyers, farmers, fertilizer sellers, delivery partners, verification employees and administrators.</p><ul class="feature-list"><li>Farmer verification workflow with supporting farm evidence, location and manual review.</li><li>Unverified farmers are restricted from publishing produce.</li><li>Role-based authentication, dashboards and protected workflows.</li><li>Cart, orders, delivery, notifications and payment flows.</li><li>React + Vite frontend, Node.js + Express backend and MongoDB.</li><li>Socket.IO realtime features, Cloudinary uploads, CI/CD and deployment work.</li></ul><div class="tech-cloud"><span>React</span><span>Vite</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Socket.IO</span><span>Cloudinary</span><span>GitHub Actions</span></div><div class="project-actions"><a class="btn-3d primary compact" href="https://github.com/charanteja7725/AgroConnect2.0" target="_blank" rel="noreferrer"><span>Repository</span><i>↗</i></a><a class="btn-3d ghost compact" href="https://github.com/charanteja7725/AgroConnect2.0/blob/main/README.md" target="_blank" rel="noreferrer"><span>Documentation</span><i>↗</i></a><button class="btn-3d muted compact" type="button" data-toast="A verified public AgroConnect frontend URL was not stored in the repository, so I did not invent one."><span>Live URL</span><i>?</i></button></div></div><div class="project-object scene-3d" aria-hidden="true"><div class="farm-cube"><div class="cube-face front">FARM</div><div class="cube-face back">BUY</div><div class="cube-face right">SELL</div><div class="cube-face left">VERIFY</div><div class="cube-face top">DELIVER</div><div class="cube-face bottom">PAY</div></div></div></div></article><article class="project-card tata tilt-card reveal"><div class="project-label">KALVIUM COLLABORATIVE PROJECT • NEXT.JS</div><div class="project-grid reverse"><div><h3>Tata 1mg Collaborative Project</h3><p class="project-problem"><strong>Learning moment:</strong> The first version was rejected. Instead of treating that as the end of the project, I used the feedback as a reason to rethink the implementation.</p><p>Working with the Kalvium-provided team, I contributed mainly to the backend side of the project, while the database work was handled separately. We reviewed what went wrong, incorporated mentor inputs, added new ideas and rebuilt the project into a stronger submission.</p><ul class="feature-list"><li>Collaborative development in a team environment.</li><li>Backend-focused contribution and API-side understanding.</li><li>Next.js project architecture and integration learning.</li><li>Git workflow, debugging, code review and merge/conflict learning.</li><li>Rejection → feedback → redesign → rebuild → successful completion.</li></ul><div class="tech-cloud"><span>Next.js</span><span>JavaScript</span><span>Backend</span><span>REST APIs</span><span>Git</span><span>Teamwork</span></div><div class="project-actions"><button class="btn-3d muted compact" type="button" data-toast="No public Tata 1mg repository was found in the connected GitHub account, so no fake link was added."><span>Team Repository</span><i>?</i></button></div></div><div class="project-object scene-3d" aria-hidden="true"><div class="rebuild-stack"><div class="layer layer-1">REJECTED</div><div class="layer layer-2">FEEDBACK</div><div class="layer layer-3">REBUILD</div><div class="layer layer-4">IMPROVED</div></div></div></div></article></div></section>
+    <section class="section-shell" id="journey"><div class="section-heading reveal"><p class="eyebrow">ENGINEERING JOURNEY</p><h2>What I have been building and learning.</h2><p>This section reflects the practical work behind the projects: algorithms, backend systems, databases, Git, CI/CD and deployment troubleshooting.</p></div><div class="journey-grid"><article class="journey-card tilt-card reveal"><span class="journey-index">01</span><h3>Java + DSA</h3><p>LeetCode-style problem solving, complexity analysis, two pointers, sorting, hashing, recursion, backtracking, dynamic programming and clean for-loop based implementations.</p></article><article class="journey-card tilt-card reveal"><span class="journey-index">02</span><h3>Backend Engineering</h3><p>REST routes, auth context, protected APIs, notifications, payments, validation, role permissions, tests and server-side debugging.</p></article><article class="journey-card tilt-card reveal"><span class="journey-index">03</span><h3>Database Thinking</h3><p>DBMS concepts, relational modelling, NoSQL/MongoDB, data structures, application schemas and understanding how data design affects the product.</p></article><article class="journey-card tilt-card reveal"><span class="journey-index">04</span><h3>Git + Collaboration</h3><p>Branches, staged changes, commits, pulls, conflict resolution, repository recovery questions, team workflows and improving confidence with source control.</p></article><article class="journey-card tilt-card reveal"><span class="journey-index">05</span><h3>CI/CD + Deployment</h3><p>GitHub Actions, Node version compatibility, npm lockfile issues, Vercel frontend builds, Render backend deployment and connecting frontend to backend environments.</p></article><article class="journey-card tilt-card reveal"><span class="journey-index">06</span><h3>Full-stack Product Mindset</h3><p>My goal is not only to make buttons look good. I want routes, business logic, user roles, validation, integrations and deployment to work as one complete product.</p></article></div></section>
     <section class="section-shell" id="skills"><div class="section-heading reveal"><p class="eyebrow">TECHNICAL TOOLKIT</p><h2>Skills I am actively using and improving.</h2></div><div class="skill-wall reveal"><span class="skill-brick">Java</span><span class="skill-brick">DSA</span><span class="skill-brick">Python</span><span class="skill-brick">JavaScript</span><span class="skill-brick">React</span><span class="skill-brick">Next.js</span><span class="skill-brick">Node.js</span><span class="skill-brick">Express</span><span class="skill-brick">MongoDB</span><span class="skill-brick">REST APIs</span><span class="skill-brick">Socket.IO</span><span class="skill-brick">Git</span><span class="skill-brick">GitHub Actions</span><span class="skill-brick">Vercel</span><span class="skill-brick">Render</span><span class="skill-brick">DBMS</span></div></section>
-
     <section class="section-shell contact-section" id="contact"><div class="contact-card tilt-card reveal"><p class="eyebrow">NEXT PROBLEM?</p><h2>I want to keep building things that solve something real.</h2><p>I am interested in opportunities where I can strengthen Java/DSA, backend engineering, full-stack development and real-world product problem solving.</p><div class="hero-actions"><a class="btn-3d primary" href="https://github.com/charanteja7725" target="_blank" rel="noreferrer"><span>View My GitHub</span><i>↗</i></a><a class="btn-3d ghost" href="#home"><span>Back to Top</span><i>↑</i></a></div></div></section>
   </main>
-
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <footer><p>Designed as a 3D portfolio around real work, real learning and real problems.</p></footer>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js"></script>
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
