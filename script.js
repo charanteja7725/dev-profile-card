@@ -1,6 +1,5 @@
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Mobile navigation: click-driven, with no animation loop.
 const menuButton = document.querySelector('.menu');
 const mobileNav = document.querySelector('.mobile-nav');
 
@@ -23,8 +22,8 @@ if(menuButton && mobileNav){
   });
 }
 
-// Content is visible by default. The observer only adds a light entrance class;
-// a failed script can never leave the page blank.
+// Progressive reveal. Elements are fully visible by default, so a script/CSS delay
+// can never produce a white or empty page during navigation.
 if(!reduceMotion && 'IntersectionObserver' in window){
   const observer = new IntersectionObserver((entries,obs)=>{
     entries.forEach(entry=>{
@@ -36,7 +35,7 @@ if(!reduceMotion && 'IntersectionObserver' in window){
   document.querySelectorAll('.section,.project,.glass-card,.contact-card').forEach(el=>observer.observe(el));
 }
 
-// Active navigation is observer-driven; there is no scroll calculation/render loop.
+// Active section tracking without a continuous scroll/render loop.
 const navLinks = [...document.querySelectorAll('.nav-links a[href^="#"]')];
 const targets = navLinks.map(link=>document.querySelector(link.getAttribute('href'))).filter(Boolean);
 if('IntersectionObserver' in window && navLinks.length){
@@ -48,7 +47,7 @@ if('IntersectionObserver' in window && navLinks.length){
   targets.forEach(target=>navObserver.observe(target));
 }
 
-// Compact header state uses one passive scroll listener only. No visual loop.
+// One passive scroll listener only for the compact header state.
 const header = document.querySelector('.nav');
 if(header){
   let lastState = false;
@@ -62,24 +61,17 @@ if(header){
   window.addEventListener('scroll',update,{passive:true});
 }
 
-// Subtle 3D tilt only while the pointer is over a card. No requestAnimationFrame loop.
+// Small pointer-only tilt. It runs only while the pointer is over a card;
+// there is no requestAnimationFrame loop and nothing runs while scrolling.
 if(!reduceMotion && window.matchMedia('(pointer:fine)').matches){
   document.querySelectorAll('.tilt').forEach(card=>{
     card.addEventListener('pointermove',event=>{
       const rect=card.getBoundingClientRect();
       const x=(event.clientX-rect.left)/rect.width-.5;
       const y=(event.clientY-rect.top)/rect.height-.5;
-      card.style.setProperty('--rx',`${(-y*2.2).toFixed(2)}deg`);
-      card.style.setProperty('--ry',`${(x*2.2).toFixed(2)}deg`);
-      card.style.setProperty('--mx',`${(x*100).toFixed(1)}%`);
-      card.style.setProperty('--my',`${(y*100).toFixed(1)}%`);
+      card.style.transform=`perspective(1100px) rotateX(${(-y*2.2).toFixed(2)}deg) rotateY(${(x*2.2).toFixed(2)}deg) translateY(-3px)`;
     });
-    card.addEventListener('pointerleave',()=>{
-      card.style.setProperty('--rx','0deg');
-      card.style.setProperty('--ry','0deg');
-      card.style.setProperty('--mx','50%');
-      card.style.setProperty('--my','50%');
-    });
+    card.addEventListener('pointerleave',()=>{card.style.transform='';});
   });
 }
 
