@@ -1,0 +1,61 @@
+/* Screenshot-inspired background polish: preserve the existing dark-blue palette. */
+body {
+  background:
+    radial-gradient(circle at 12% 12%, rgba(86,108,255,.13), transparent 25%),
+    radial-gradient(circle at 88% 18%, rgba(98,230,255,.08), transparent 24%),
+    radial-gradient(circle at 50% 82%, rgba(168,120,255,.06), transparent 30%),
+    linear-gradient(180deg, #06101d 0%, #091526 48%, #050b14 100%);
+}
+
+/* Quiet technical grid like the reference, kept low-contrast so content stays primary. */
+body::before {
+  background-image:
+    linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px),
+    radial-gradient(circle at 50% 0%, rgba(98,230,255,.08), transparent 36%);
+  background-size: 56px 56px, 56px 56px, auto;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,.96), rgba(0,0,0,.72) 58%, transparent 96%);
+}
+
+/* Subtle separators for the clean, layered dashboard feel. */
+.section-shell::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(860px, 92%);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(157,184,255,.16), transparent);
+  pointer-events: none;
+}
+
+.topbar {
+  background: rgba(7,17,31,.82);
+  box-shadow: 0 10px 0 rgba(3,8,17,.82), 0 18px 36px rgba(0,0,0,.24);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.glass-card, .journey-card, .mini-card, .belt-tower, .project-card, .contact-card {
+  background: linear-gradient(145deg, rgba(18,34,61,.78), rgba(7,15,28,.82));
+  box-shadow: 0 12px 0 #020712, 0 24px 42px rgba(0,0,0,.30);
+}
+
+/* Keep transforms on their own compositor layer for smoother hover/scroll motion. */
+.tilt-card, .nav-chip, .btn-3d, .portrait-frame, .floating-badge, .orbit, .farm-cube, .rebuild-stack {
+  will-change: transform;
+}
+
+/* Reduce expensive blur/shadow work on touch devices. */
+@media (max-width: 680px), (pointer: coarse) {
+  .noise, .cursor-glow { display: none; }
+  .topbar { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  .glass-card, .journey-card, .mini-card, .belt-tower, .project-card, .contact-card {
+    box-shadow: 0 8px 0 #020712, 0 16px 30px rgba(0,0,0,.24);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-glow { display: none; }
+}
