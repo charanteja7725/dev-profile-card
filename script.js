@@ -1,6 +1,6 @@
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Mobile navigation: event-driven only; no continuous animation loop.
+// Mobile navigation. All interactions are event-driven; there is no animation loop.
 const menuButton = document.querySelector('.menu-toggle');
 const mobileMenu = document.querySelector('.mobile-menu');
 
@@ -19,14 +19,17 @@ if (menuButton && mobileMenu) {
     mobileMenu.classList.toggle('open', !open);
   });
 
-  mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+  mobileMenu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
   document.addEventListener('click', (event) => {
     if (!mobileMenu.classList.contains('open')) return;
     if (!mobileMenu.contains(event.target) && !menuButton.contains(event.target)) closeMenu();
   });
 }
 
-// Reveal sections once. IntersectionObserver avoids a scroll handler/render loop.
+// Reveal each section once. IntersectionObserver works independently of scroll events.
 const revealItems = document.querySelectorAll('.reveal:not(.hero .reveal)');
 if (!reduceMotion && 'IntersectionObserver' in window) {
   const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -36,12 +39,13 @@ if (!reduceMotion && 'IntersectionObserver' in window) {
       observer.unobserve(entry.target);
     });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
   revealItems.forEach((item) => revealObserver.observe(item));
 } else {
   revealItems.forEach((item) => item.classList.add('visible'));
 }
 
-// Section-aware navigation using IntersectionObserver instead of continuous scroll calculations.
+// Highlight the current navigation section without running calculations on every scroll frame.
 const desktopLinks = [...document.querySelectorAll('.desktop-nav a[href^="#"]')];
 const sections = desktopLinks
   .map((link) => document.querySelector(link.getAttribute('href')))
@@ -56,25 +60,11 @@ if ('IntersectionObserver' in window && desktopLinks.length) {
       link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
     });
   }, { rootMargin: '-35% 0px -55% 0px', threshold: [0, .2, .5] });
+
   sections.forEach((section) => navObserver.observe(section));
 }
 
-// Add the compact header state after the first meaningful scroll event.
-const header = document.querySelector('.site-header');
-let headerTick = false;
-if (header) {
-  const updateHeader = () => {
-    headerTick = false;
-    header.classList.toggle('scrolled', window.scrollY > 24);
-  };
-  window.addEventListener('scroll', () => {
-    if (headerTick) return;
-    headerTick = true;
-    requestAnimationFrame(updateHeader);
-  }, { passive: true });
-}
-
-// Make keyboard users able to close the mobile menu with Escape.
+// Keyboard accessibility for the mobile menu.
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeMenu();
 });
