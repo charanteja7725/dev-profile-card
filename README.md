@@ -1,52 +1,57 @@
-# 3D Developer Portfolio
+# Ravuri Charan Teja — Developer Portfolio
 
-A responsive, interactive 3D portfolio for **Ravuri Charan Teja** focused on real-world problem solving, Kalvium coding achievements, Java/DSA, Python, collaborative learning, and featured project work.
+A fast, responsive, recruiter-focused portfolio for **Ravuri Charan Teja**, a Software Product Engineering student focused on full-stack development, Java, DSA and real-world problem solving.
 
 ## Portfolio focus
 
 - Problem-first software development
-- Kalvium coding journey
+- Full-stack product engineering
 - Java as the primary language: **6 of 7 Dojo belts achieved**
 - DSA and algorithmic problem solving
 - Python as the secondary language: **4 Dojo belts achieved**
 - Communication score: **8**
 - Individual project: **AgroConnect 2.0**
-- Collaborative Kalvium project: **Tata 1mg**
+- Collaborative project experience: **Tata 1mg**
 - Backend engineering, Git, CI/CD, Vercel and Render learning
 
-## Featured project: AgroConnect 2.0
+## Projects
 
+### AgroConnect 2.0
 Repository: https://github.com/charanteja7725/AgroConnect2.0
 
-AgroConnect 2.0 is presented as a full-stack agricultural marketplace with multiple user roles, farmer verification, protected workflows, cart/order/delivery/payment flows, realtime notifications and cloud deployment work.
+A full-stack agricultural marketplace with multiple user roles, farmer verification, protected workflows, cart/order/delivery/payment flows, realtime notifications and cloud deployment work.
 
-The portfolio intentionally does **not** invent a public live frontend URL. The connected AgroConnect repository currently has no homepage URL set and its documentation only contains placeholder Vercel/Render URLs. Once the real production URL is confirmed, replace the Live URL button in `index.html`.
+The portfolio does not invent a public live frontend URL for AgroConnect because the repository documentation does not provide a confirmed production URL.
 
-## Featured project: Tata 1mg
+### Tata 1mg
+A Kalvium collaborative learning experience involving feedback, redesign, backend-focused contribution, teamwork and rebuilding after rejection. No public repository link is fabricated.
 
-The portfolio presents the project as a Kalvium collaborative learning experience: an initial rejection, feedback, redesign, backend-focused contribution, teamwork and a successful rebuild. No public Tata 1mg repository was found in the connected GitHub account, so the portfolio does not fabricate a repository link.
+### Rangam Saree Silks
+A deployed AI-based online saree shopping platform with product, account, order and payment workflows.
 
-## 3D experience
+Live: https://rangam-saree-silks.vercel.app/
 
-The interface uses:
+## UX and performance
 
-- CSS perspective and `transform-style: preserve-3d`
-- Interactive mouse tilt on cards
-- 3D/extruded buttons and skill bricks
-- Animated skill orbits
-- A rotating 3D cube for AgroConnect roles
-- A layered 3D rejection-to-rebuild visual for Tata 1mg
-- Three.js wireframe geometry and particle background
-- Reduced-motion accessibility fallback
+The portfolio intentionally uses a lightweight visual system rather than a 3D/WebGL experience.
+
+- No Three.js
+- No continuous canvas rendering
+- No mouse-driven 3D transforms
+- Static CSS background effects
+- Event-driven mobile navigation
+- IntersectionObserver-based one-time section reveals
+- Passive scroll handling with requestAnimationFrame for the compact header state
+- Responsive layout for mobile, tablet and desktop
+- `prefers-reduced-motion` support
+- Inline critical background styling prevents a white flash before the stylesheet paints
 
 ## Run locally
 
-No build step is required.
+No build step is required:
 
 ```bash
 python -m http.server 8000
 ```
 
 Then open `http://localhost:8000`.
-
-You can also serve the repository using GitHub Pages, Netlify or Vercel as a static site.
