@@ -1,6 +1,6 @@
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Keep the featured-project section aligned with the real deployed projects.
+// Keep the featured-project section aligned with the existing portfolio content.
 (function enhanceFeaturedProjects() {
   const projectsSection = document.querySelector('#projects');
   if (!projectsSection) return;
@@ -58,32 +58,47 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   else projectStack.prepend(rangamCard);
 })();
 
-// Reveal sections as they enter the viewport.
-const revealObserver = new IntersectionObserver((entries) => {
+// Reveal elements once. Unobserving after reveal avoids unnecessary scroll work.
+const revealObserver = new IntersectionObserver((entries, observer) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
+      observer.unobserve(entry.target);
     }
   });
 }, { threshold: 0.12 });
 
 document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
-// Lightweight 3D tilt on pointer devices only.
+// Smooth, low-frequency 3D tilt. Work is batched into animation frames.
 if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
   document.querySelectorAll('.tilt-card').forEach((card) => {
-    card.addEventListener('mousemove', (event) => {
-      const rect = card.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width;
-      const y = (event.clientY - rect.top) / rect.height;
-      card.style.transform = `perspective(1100px) rotateX(${(0.5 - y) * 8}deg) rotateY(${(x - 0.5) * 9}deg) translateZ(10px)`;
+    let frame = 0;
+    let pointerX = 0;
+    let pointerY = 0;
+
+    card.addEventListener('pointermove', (event) => {
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        const rect = card.getBoundingClientRect();
+        const x = (pointerX - rect.left) / rect.width;
+        const y = (pointerY - rect.top) / rect.height;
+        card.style.transform = `perspective(1100px) rotateX(${(0.5 - y) * 5}deg) rotateY(${(x - 0.5) * 6}deg) translateZ(5px)`;
+      });
     }, { passive: true });
-    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+
+    card.addEventListener('pointerleave', () => {
+      if (frame) cancelAnimationFrame(frame);
+      frame = 0;
+      card.style.transform = '';
+    });
   });
 }
 
-// Truthful tooltip for links that are not publicly verifiable.
+// Small status toast for controls without public URLs.
 const toast = document.getElementById('toast');
 let toastTimer;
 document.querySelectorAll('[data-toast]').forEach((button) => {
